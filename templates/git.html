@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>MailGuard AI</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<div class="top-bar">
+
+<div class="logo">
+🛡️ MailGuard AI
+</div>
+
+<div class="guest">
+Guest
+</div>
+
+</div>
+
+<h2 class="section-title">
+Paste the suspicious email
+</h2>
+
+<form action="/analyze" method="POST">
+
+<textarea
+name="email"
+placeholder="Paste the suspicious email here..."
+></textarea>
+
+<br>
+
+<button class="analyze-btn">
+Analyze Email
+</button>
+
+</form>
+
+<div class="card">
+
+<h3>🛡️ Cyber Safety Tips</h3>
+
+<ul>
+
+<li>Check the sender's email address.</li>
+
+<li>Never share passwords or OTPs.</li>
+
+<li>Avoid clicking unknown links.</li>
+
+<li>Verify urgent requests.</li>
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h3>📊 Analysis Result</h3>
+
+{% if result %}
+
+<h2>{{ result }}</h2>
+
+<p><strong>Risk Score:</strong> {{ score }}%</p>
+
+<h4>Reasons:</h4>
+
+<ul>
+
+{% for reason in reasons %}
+
+<li>{{ reason }}</li>
+
+{% endfor %}
+
+</ul>
+
+{% else %}
+
+<p>Waiting for analysis...</p>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</body>
+
+</html>
