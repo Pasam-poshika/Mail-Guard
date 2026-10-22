@@ -1,129 +1,138 @@
+```html
 <!DOCTYPE html>
 <html>
 
 <head>
 
-<title>MailGuard AI</title>
+    <title>MailGuard</title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
 <body>
 
-<div class="dashboard">
+    <div class="dashboard">
 
-<div class="top-bar">
+        <div class="top-bar">
 
-<div class="logo">
-🛡️ MailGuard AI
-</div>
+            <div class="logo">
+                🛡️ MailGuard
+            </div>
 
-<div class="guest">
-Guest
-</div>
+            <div class="guest">
+                Guest
+            </div>
 
-</div>
+        </div>
 
-<h2 class="section-title">
-Paste the suspicious email
-</h2>
+        <h2 class="section-title">
+            Paste the Suspicious Email
+        </h2>
 
-<form action="/analyze" method="POST">
+        <form action="/analyze" method="POST">
 
-<textarea
-name="email"
-placeholder="Paste the suspicious email here..."
-></textarea>
+            <textarea
+                name="email"
+                placeholder="Paste the suspicious email here..."
+                required></textarea>
 
-<br>
+            <br>
 
-<button class="analyze-btn">
-Analyze Email
-</button>
+            <button class="analyze-btn">
+                Analyze Email
+            </button>
 
-</form>
+        </form>
 
-<div class="card">
+        <div class="card">
 
-<h3>🛡️ Cyber Safety Tips</h3>
+            <h3>🛡️ Cyber Safety Tips</h3>
 
-<ul>
+            <ul>
+                <li>Check the sender's email address.</li>
+                <li>Never share passwords or OTPs.</li>
+                <li>Avoid clicking unknown links.</li>
+                <li>Verify urgent requests before responding.</li>
+            </ul>
 
-<li>Check the sender's email address.</li>
+        </div>
 
-<li>Never share passwords or OTPs.</li>
+        <div class="card">
 
-<li>Avoid clicking unknown links.</li>
+            <h3>📊 Analysis Result</h3>
 
-<li>Verify urgent requests.</li>
+            {% if result %}
 
-</ul>
+                <h2>{{ result }}</h2>
 
-</div>
+<h4>Risk Score</h4>
 
-<div class="card">
+<div class="progress">
 
-<h3>📊 Analysis Result</h3>
-
-{% if result %}
-
-<h2>{{ result }}</h2>
-
-<p><strong>Risk Score:</strong> {{ score }}%</p>
-
-<h4>Reasons:</h4>
-
-<ul>
-
-{% for reason in reasons %}
-
-<li>{{ reason }}</li>
-
-{% endfor %}
-
-</ul>
-
-{% else %}
-
-<p>Waiting for analysis...</p>
-
-{% endif %}
+    <div
+        class="progress-fill"
+        style="width: {{ score }}%;">
+    </div>
 
 </div>
 
-</div>
+<p><strong>{{ score }}%</strong></p>
+        
+                <h4>Reasons:</h4>
 
-<div class="card">
+                <ul>
 
-    <h3>💬 Feedback</h3>
+                    {% for reason in reasons %}
 
-    <form action="/feedback" method="POST">
+                        <li>{{ reason }}</li>
 
-        <label>Was this analysis helpful?</label>
+                    {% endfor %}
 
-        <br><br>
+                </ul>
 
-        <input type="radio" name="rating" value="Yes" required> 👍 Yes
+            {% else %}
 
-        <input type="radio" name="rating" value="No"> 👎 No
+                <p>Waiting for analysis...</p>
 
-        <br><br>
+            {% endif %}
 
-        <textarea
-        name="comment"
-        placeholder="Write your feedback..."
-        style="height:120px;"></textarea>
+        </div>
 
-        <br>
+        <div class="card">
 
-        <button class="analyze-btn">
-            Submit Feedback
-        </button>
+            <h3>💬 Feedback</h3>
 
-    </form>
+            <form action="/feedback" method="POST">
 
-</div>
+                <label><strong>Was this analysis helpful?</strong></label>
+
+                <br><br>
+
+                <input type="radio" name="rating" value="Yes" required> 👍 Yes
+
+                &nbsp;&nbsp;&nbsp;
+
+                <input type="radio" name="rating" value="No"> 👎 No
+
+                <br><br>
+
+                <textarea
+                    name="comment"
+                    placeholder="Write your feedback..."
+                    style="height:120px;"></textarea>
+
+                <br>
+
+                <button class="analyze-btn">
+                    Submit Feedback
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
 
 </body>
 
